@@ -14,4 +14,4 @@ while fib <= 4000000:
         sum += fib # Adds to rolling sum
     x += 1 # Iterates x
 
-print(sum)
+print(sum) # Answer: 4613732
