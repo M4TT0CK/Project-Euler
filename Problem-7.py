@@ -2,18 +2,27 @@ import math
 import Project_Euler
 # Problem 7: What is the 10001st prime number?
 
-# Iterates through each integer 2...n until the correct prime is found.
-# Runtime is very long using standard sieve; needs revision
+# Uses a sort of binary search approach to locate a prime by index.
+# It doubles in size with every iteration such that the current index < n.
+# If index > n, spltis the difference of iteration and subtracts to back track.
+# Takes considerably less time to find the answer this way than through a
+# strictly iterative approach.
 def nthPrime(n):
     p = []
-    index = 2
+    index = 1
+    length = 0
+    last = 0
 
-    while len(p) < n:
-        p = []
-        for x in Project_Euler.sieveOfEratosthenes(index):
-            p.append(x)
+    while length != n:
+        length = len(p)
+        if length < n:
+            last = index
+            index = index * 2
+            p = Project_Euler.sieveOfEratosthenes(index)
+        if length > n:
+            index = index - int((index - last) / 2)
+            p = Project_Euler.sieveOfEratosthenes(index)
         print(len(p))
-        index += 1
     
     return p[n - 1]
 
